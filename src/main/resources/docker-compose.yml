@@ -1,0 +1,46 @@
+version: '3'
+services:
+  microService:
+    image: short_chain:1.0.0
+    container_name: short_chain
+    ports:
+      - "8090:8090"
+    volumes:
+      - /data/java/short_chain:/data
+    networks:
+      - my_net
+#    当前服务依赖项
+    depends_on:
+      - redis
+      - mysql
+  redis:
+    image: redis:latest
+    container_name: app_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - /data/java/redis/data:/data
+      - /data/java/redis/redis.conf:/etc/redis/redis.conf
+    networks:
+      - my_net
+    command: redis-server /etc/redis/redis.conf
+  mysql:
+    image: mysql:8.0.39
+    container_name: app_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+      MYSQL_DATABASE: 'item_test'
+      MYSQL_USER: 'test'
+      MYSQL_PASSWORD: 'rzny0cB18&E+'
+    ports:
+      - "3306:3306"
+    volumes:
+      - /data/java/mysql/conf.d:/etc/mysql/conf.d
+      - /data/java/mysql/log:/var/log/mysql
+      - /data/java/mysql/data:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - my_net
+networks:
+  my_net:
