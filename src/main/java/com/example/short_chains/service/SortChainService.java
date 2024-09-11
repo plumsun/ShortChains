@@ -11,5 +11,5 @@ public interface SortChainService extends IService<ChainInfo> {
 
     Response generation(String url);
 
-    Response findLongChain(String sortChainUrl);
+    Response findLongChain(String sortChainUrl,String status);
 }

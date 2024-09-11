@@ -1,5 +1,6 @@
 package com.example.short_chains.service;
 
+import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -7,7 +8,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.short_chains.exception.BusinessException;
 import com.example.short_chains.pojo.ChainInfo;
 import com.example.short_chains.pojo.ConstantEnum;
-import com.example.short_chains.pojo.StatusEnum;
 import com.example.short_chains.repository.ChainInfoMapper;
 import com.example.short_chains.resp.Response;
 import com.example.short_chains.utils.SortGenerationUtils;
@@ -88,18 +88,18 @@ public class SortChainServiceImpl extends ServiceImpl<ChainInfoMapper, ChainInfo
 
 
     @Override
-    public Response findLongChain(String sortChainUrl) {
+    public Response findLongChain(String sortChainUrl,String status) {
         // 先通过布隆过滤器过滤当前短链
-        RBloomFilter<String> filter =
-                this.redisson.getBloomFilter(ConstantEnum.SORT_CHAIN_KEY.getValue());
-        boolean contains = filter.contains(sortChainUrl);
-        if (!contains) {
-            return Response.err();
-        }
+//        RBloomFilter<String> filter =
+//                this.redisson.getBloomFilter(ConstantEnum.SORT_CHAIN_KEY.getValue());
+//        boolean contains = filter.contains(sortChainUrl);
+//        if (!contains) {
+//            return Response.err();
+//       }
 
         LambdaQueryWrapper<ChainInfo> wrapper = Wrappers.lambdaQuery(ChainInfo.class)
                 .eq(ChainInfo::getSortChainUrl, sortChainUrl)
-                .eq(ChainInfo::getStatus, StatusEnum.EFFECTIVE);
+                .eq(CharSequenceUtil.isNotBlank(status),ChainInfo::getStatus, status);
 
         Optional<ChainInfo> optional = Optional.ofNullable(this.getOne(wrapper));
 

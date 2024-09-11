@@ -1,16 +1,16 @@
 server:
-  port: 8090
+  port: 8001
 
 spring:
   application:
     name: short_chains
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/short_chains?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
-    username: root
-    password: root
+    url: jdbc:mysql://app_mysql:3306/item_test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    username: test
+    password: rzny0cB18&E+
   redis:
-    host: redis
+    host: app_redis
     port: 6379
     timeout: 1000
     connectTimeout: 1000

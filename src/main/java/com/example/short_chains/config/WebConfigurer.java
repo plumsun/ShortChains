@@ -25,6 +25,6 @@ public class WebConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(urlInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/chains/generation/**");
+                .excludePathPatterns("/chains/generation/**","/chains/findLongChain/**");
     }
 }
