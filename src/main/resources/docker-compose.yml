@@ -1,4 +1,3 @@
-version: '3'
 services:
   microService:
     image: short_chain:1.0.0
