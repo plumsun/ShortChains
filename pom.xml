@@ -12,9 +12,8 @@
 
 
     <properties>
+        <encoding>UTF-8</encoding>
         <java.version>11</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.7.5</spring-boot.version>
         <hutool.version>5.8.11</hutool.version>
     </properties>
@@ -91,18 +90,17 @@
         <finalName>short_chains</finalName>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version> <!-- 指定版本 -->
+                <configuration>
+                    <source>${java.version}</source> <!-- 设置 Java 源代码版本 -->
+                    <target>${java.version}</target> <!-- 设置编译目标版本 -->
+                    <encoding>${encoding}</encoding>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+
 
 </project>
